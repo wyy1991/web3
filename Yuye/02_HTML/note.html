@@ -1,0 +1,245 @@
+Yuye's note
+
+
+My Study Road of HTML
+Feb 8, 2015
+
+
+study resource:
+w3 school 入门级别的html resource.
+
+study methods:
+仿站＋项目
+
+项目resume:
+resume get a 
+
+create a html page resume. 
+print html save as .pdf
+
+
+
+
+
+http://www.w3schools.com/
+Example search in w3 school "keyframe",
+there will will be example for these. 
+
+
+
+插播：
+/* Chrome, Safari, Opera */ 
+@-webkit-keyframes mymove {
+    0%   {top: 0px;}
+    25%  {top: 200px;}
+    75%  {top: 50px}
+    100% {top: 100px;}
+}
+/* Standard syntax */    
+@keyframes mymove {
+    0%   {top: 0px;}
+    25%  {top: 200px;}
+    75%  {top: 50px}
+    100% {top: 100px;}
+}
+
+为什么有两段这个呢？因为
+
+-目前写了前面这个是因为，不浅只有支持webkit的这个才支持keyframe.
+-要考虑code 的兼容性， 不但要向前兼容还要向后兼容。当有一天所有的浏览器都兼容key frame 的时候就不需要了。
+
+-----------------------------
+
+CSS3 generator
+
+http://css3generator.com/
+
+可以自动生成兼容不同浏览器的css
+
+
+-webkit-transition: background 2s linear;   <------ chrome
+-moz-transition: background 2s linear;		<------ mozila
+-ms-transition: background 2s linear;		<------ ms?
+-o-transition: background 2s linear;		<------ opera
+transition: background 2s linear;
+
+
+data-attribute
+
+data (:)
+
+My question: 
+Can we define our own html tag?
+html 5  里面可以自己create 任何名字的tag, 在css里面可以work
+
+Chrome inspect element (ctl + command+ i )
+
+Load 的一些过程：
+先load html
+在head 里面发现又external link,  然后发request 去拿external link， css里面
+然后再解析body 里面的内容。
+上次的sample 把一些
+
+multiple language support的话需要写 一下language
+
+html basic 
+html link 可以用来做什么
+head
+
+h1 - h6  <- 不仅有之前pre define 好的  告诉搜索引擎 怎么去index 这个page. 这些是又sementic 的语意
+		 一般一个page 只能又一个h1,  比如一个home page 
+		如果紧紧想让他变大变小的话用css class 做		 
+p <- paragraph, 浏览器本身是又给他style的， 是又margin的
+	什么时候用p什么时候用div?  一般浏览器对div 没有pre define的style， 但是p 是有的。
+
+	user-agent-stylesheet     浏览器本身给他的style sheet， 不是我们写的
+	option select    input feild    tab = data 
+	如果不想要它   css default clear    再我的css的最上面， 写 @import  ..  (reset css)
+
+	html5 强调他的语意 所以所有东西都是
+
+	p本身是block 的， 所以每个brower 基本都会显示display block
+
+div
+a
+ul / ol
+form 里面的那一些： submit
+
+
+
+a link 例子：
+link 的 mail to 功能
+VoIP (voice over internet)
+实现单页面的导航   a #
+可以实现本地程序的调用 调用skype之类的
+
+	<a href="mailto:leaves1991@gmail.com?Subject=My%20First%20Link">Send email to Yuye.</a>
+	<a href="tel:+6086925513">Call Yuye.</a>
+	<a href="#">anchor</a>
+	<a href="skype:wangyuye1991">Skype Yuye</a>
+
+所以常用的功能都可以用html完成了， 复杂的可能要用javascript。 
+
+
+关于img :
+img 现在主要是logo在用
+现在网页上多数的图用的是background, 可以定义长宽， 可以定义是不是repeat, 是不是image
+background 三层结构：
+content
+image
+background image
+
+如果网页并发访问量大， 可以把所用到的小的image 放到一个大的image里面， 然后调整back ground image 的position，和height和width, 这样节省load的次数。 
+本地时间， cost 时间的sent request, http 封装， 发出去拿回来的时间。 
+
+
+很多tag 里面加title   <- tooltip
+img 加 alt <- image load 不出来
+这些不能忘。
+
+规范：
+写html， css, javascript 一般都是小写。
+引号不要混用， 一般外层是双引号内层单引号，
+有语义的 word
+layer 要对其， 要么用tab 要么用空格， 推荐用tab
+class，id 名字和括号之间要有空格， 单元运算符要有空格， 
+
+
+css 有几种load 方法
+inline最强
+in header
+external
+
+!important 是最强的， 尽量少用
+p {
+    color: red !important;
+}
+
+
+居中的的几种方式
+左右居中：
+-可以加在container的里面加 text-align : center， 
+-让里面的left:50% div的左上角 针对parent的左上角，
+ 再margin-left:50%   向左边再缩进去里面的div的50%
+-margin:auto  就居中了， 会自动分配左右的margin相等
+ 上右下左， 上 左右 下，
+
+新的tag有语义的就要去看， 比如address就用<address>
+
+要考虑一个整体布局的问题， 
+
+---------
+responsive design  和 adaptive design
+responsive design 根据不同的屏幕大小而改变css (html是一样的)
+adaptive design 发request 之后， 从接受request的时候开始就把它分开了， 例，发现他是一个mobile 设备，就用专门根据这个设备用
+
+
+html 5里面新加了一些 tag
+重要的， header 和footer , section, 
+
+试了一下各种input 的tag
+如果不支持fallback 的写法
+
+html5 input的新attribute
+autocomplete
+autocapitalize 手机版本的safari可以识别的， 自动首字母答谢
+pattern <- 这个很重要，input content 之后，submit前， input value的validate. 强制browser根据regular expression来匹配。
+required 和 pattern 都是在submit前的
+required 这个input 是必须写的， 
+placeholder 提示性的东西， 是没有value的。
+min and max 因为有num 和range 这些， 所以出现了min and max
+
+
+disabled
+
+
+--------
+
+local storage  存在local 本地上。
+session storage  －当这个session 出现的时候get 什么的都是存在里面的， 从点开这个网站到关闭这个browser，
+
+
+local storage 可以就get and set 去拿到
+// Store
+localStorage.setItem("lastname", "Smith");
+// Retrieve
+document.getElementById("result").innerHTML = localStorage.getItem("lastname");
+
+3个牛逼的功能，在用户受权的情况下：
+用户通过internet 所能计算出来的地理位置
+访问用户的mic ， 例子，使得desktop 版本的刷卡机成为可能
+访问用户的camera，  例子， 使得desktop 的qr code 成为可能
+
+
+
+mi.com/en/miband
+
+title 是可以改的
+meta 是可以删的
+link 是不能删的 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

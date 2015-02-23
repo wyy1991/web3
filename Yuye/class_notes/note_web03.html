@@ -1,0 +1,298 @@
+notes3
+
+
+Udacity  online course has good projects we can follow.
+https://www.udacity.com/
+--------------------------------------------------------
+html css
+相互的overwrite 顺序
+box的系统
+
+css 本身在哪里加：
+inline style  <－最强 但是不推荐， 之后不容易maintain
+in the <head>
+external <link>  <-一般是这种 
+
+rel="stylesheet"   
+
+css的精华在于他的selector, 和jQuery 是
+jqurey 多一个 $ document 的全局selector
+
+element  h1{ }
+class    {}
+id    # 
+
+connect在一起的时候
+
+中间没有space或者符号的时候 就是and的关系
+
+h1#header{
+	...
+}
+表示 h1 的并且id为header的
+h1.intro#header <---更强的表示， h1的clas为intro的 并且
+
+style priority:
+external <link>			［弱］
+in the <head>
+inline style attribute
+using !important       	［强］
+
+override:
+相同的selector 相同的element, 后面的element更强。
+
+同一个element不同的selector:
+id最强，然后class, 然后tag
+
+不override的css最后是combine 在一起的。
+--------------------------------------------------------
+关于float的效果：
+常用于：有文字有图片的地方。
+img{
+	float:left;
+}
+float: left/right/none
+理解：尽量向左边压，若果parent宽度卡死了，会自动换行到下面， 但是如果第一个element高度比较长，换行了的element会换到第一个右边。
+
+写在html里面的顺序和css的顺序, 最好是按照显示顺序放，不然在screen size小的时候上下顺序可能会被压到html的顺序而导致与预想的顺序不同。
+
+如果两个同级element，同时float right, 按照html里面的顺序被吸到右边。
+
+clear:left/right/both
+去掉float. 
+让intro 前后不能有float的element
+.intro{
+	clear:both;
+}
+
+有时候image 比parent div大， 很可能是用了float, 或者是absolute什么的。
+--------------------------------------------------------
+
+<article class="featured">
+	<p>hello</p>
+</article>
+
+
+
+.featured p{ } <--- featured的selectors的seccessors里面的所有的p
+
+.featured > p { } <-- 只针对第一层的p,直接的child 
+
+.featured class的自己的
+
+p.featured <---feature自己
+
+nesting the element selector overrides the color on .featured
+
+约定俗成：
+class 是给css用来select
+id一般是用于javascript和实现一些功能的
+--------------------------------------------------------
+
+一种看那个强的办法,  写数字， 在同级别的情况那个数字大。  0,0,0,0  表示inline, id, class, element
+
+
+--------------------------------------------------------
+The Box model
+
+.box{
+	border 
+	padding=left
+	padding-right
+	width:  <------ content的宽度，是不包含box border的。 
+}
+
+width:%50； 表示是parent 的width的%50
+
+box-sizing: border-box; <---表示定义的宽度是只的是什么, 不写的话是不包含border的， 只是content的。
+
+怎样让box的width包含padding
+---------
+处理 Overflow 
+overflow: 
+visible  <--- overflow了以后仍然显示， 手机上好用，因为可以划， 但是在desktop上就容易有问题
+auto <----- 左右自动出来scroll bar，
+hidden <----- overflow了就不显示
+scroll <---- 一直有scroll bar, 和auto不一样的是， auto是根据内容需要有scroll bar 和没有scroll bar
+
+当有好几层layer的时候， 跨平台跨浏览器会比较头疼。如果一层visible 一层scrollbar一层， 会比较头疼
+--------------------------------------------------------
+positioning
+postion:
+static   <--- by default 
+relative
+absolute
+fixed
+
+static:
+成对出现的， 
+给了top 和bottom 只有top 是生效的; 给了左右，只有左是生效的。
+
+relative:
+我想产生 x^2 的效果， 
+sup{
+	font-size: %75;
+	line-height:0;
+	vertical-align: baseline;
+	position:relative;
+	top: -0.5em;
+}
+
+0.5em <-- 我的base字体大小的0.5大小。
+
+absolute:
+定位相对于整个page的左上角(不是window)。
+祖先里面有东西被声明了relative, 则这个absolute定义了的是那个东西的坐上角。  用法，在一个弹窗里面的的某个位置要一个tooltip什么的。
+
+
+fixed:
+相对于window的位置。  最常用的是上面的nav bar.
+.ski{
+	position: fixed:
+	right:10px;
+	top:10px;      <---可以考虑用50% 那么就是整个window的
+}
+--------------------------------------------------------
+Z-index:
+处理box和box之间的overlap.
+.ski, .sled{
+	z-index:1;
+} 
+.ski{
+	z-index:2;
+}
+
+default 为0, 数字越大越向前。
+如果z-index相同的话，后面出现的就把前面的覆盖掉了。
+如果就像要一张图放到最后的话， 可以设置为-1.
+
+z-index必须配合着position使用。
+--------------------------------------------------------
+防止code 冗余。
+
+全局生效的一些东西 可以放在body里面， 比如font family什么的。
+common的共用的css写在尽量高的element 里面：例，在page里面一部分改font, 就写在尽量高的container里面写上面。
+
+很多个不同的selector 用同样的style, 可以写在一起
+p, .ski_lift, h6{
+	font-size: 12px;
+}
+
+两个地方css是一样的，可以写一个更general的class name 赋值在一块， 给别的selector. 
+
+
+
+一般 margin 什么的为0的话 不要加 px
+
+.ski_poles{
+	margin: 15px 10px 0 20px;  // 上右下左
+}
+
+
+多数中间带一个heiphen 的，都有简写的方法, 例子：
+font: italic bold 16px/18px sans-serif;    <---第一个是本身的大小，
+background
+
+display: 
+none    //整个不显示了，  visibility: hidden 是会留着这个位置
+block   // 会占满整个这个横行， 前后还给了一点点margin
+inline  // 尽可能把这些inline的元素放在同一行里
+inline-block  // 把这些放在inine 起来的东西block起来
+--------------------------------------------------------
+
+centering 
+
+--------------------------------------------------------
+仿站 ftp 网站
+
+ftp 客户端：
+fetch 
+http://fetchsoftworks.com/
+
+zizuo.us/zizuo/02
+
+--------------------------------------------------------
+
+host 
+
+wordpress
+
+shopify
+
+--------------------------------------------------------
+－把仿站的结果用ftp上传
+－每个人create 一个最简单的wordpress, 熟悉一下wordpress的操作，shopping cart
+-shopify 有兴趣的做， 没兴趣的算了
+-简历， 从master上弄下来模版， 发pull request
+-看课上的slides
+
+
+techbowWEB003#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,101 @@
+ios notes  2/22/2015
+
+play around with swift on "playground"
+
+
+create project  
+
+
+run project in simulator
+
+
+
+create ui, 在view controller 里面 左边
+
+
+control + 拖拽 从button到code里面
+
+当打开的时候需要的code要放倒viewDidLoad()
+
+在view之前需要的防灾viewDidLoad()之前
+
+ 
+button 要记得选 action -> touch action inside
+
+
+在button的function里面写了一些东西。
+
+
+simulator 里面转方向 
+command + 左 
+command + 右
+
+
+//----------
+
+navigation bar
+
+
+navigagion bar 
+上面拽一个 bar button item
+
+tool bar放下面
+
+Flexible Space Bar Button Item
+
+让东西滴在 左右和下面 选哪个 左右 上下
+
+记得button 要选action 才会出来method
+
+关于设置一个timer:
+ var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateTime", userInfo: nil, repeats: true)
+
+写一个function
+  func updateTime(){
+    
+  }
+
+
+
+ 加一个新的 view controller
+
+
+ 让一个button 切换到另外一个页面， control 拖拽到另外一个view controller上面， 选show 或者别的翻页方式
+
+
+给view controller一个权限， 让它可以操作table view
+
+在view controller class之外定义的就是全局变量, 是在不同的view里面都可以拿到的
+
+做一个暂存的
+ NSUserDefaults.standardUserDefaults().setObject(toDoList, forKey: "toDoList")  // key是我们之后要拿的那个东西
+
+
+
+把table view 拖到view controller 上 加 delegate 和  dataSource, 表示view controller 可以控制table view
+在code里面也要加
+class FirstViewController: UIViewController, UITableViewDelegate {
+
+
+cmd + 点到code里面需要看的 相当于f3之类的
+
+UITableView  里面有两个function copy过来
+
+要选一下table view的table identifier 
+
+
+要在side 2里面加一个   UITextField
+让它textfield return 以后
+ func textFieldShouldReturn(textField: UITextField) -> Bool {
+        // called when 'return' key pressed. return NO to ignore.
+        todoTF.resignFirstResponder()
+        return true
+    }
+
+
+
+
+
+
+
+

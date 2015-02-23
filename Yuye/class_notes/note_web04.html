@@ -1,0 +1,268 @@
+
+class 4 javascript 
+
+一个类似 bootstrap的新的library，目测比bootstrap 做的很fancy
+http://semantic-ui.com/
+
+animate css
+http://daneden.github.io/animate.css/
+
+---------------javascript 变量----------------
+变量比较
+javascript 用的都是var
+所以在比较的时候， 如果int和string比较的时候的话
+
+if (1234 == "1234") {
+	console.log("int equal string");
+} else {
+	console.log("not equal");
+}
+// 结果会是 equal
+
+如果强制加上类型的比较的话, 用 === , 或者 !==
+
+
+string 的长度是 .length
+"hello world !".length
+
+javascript css 命名第一个不能是数字
+
+命名一般用library里面的 约定俗成的用underscore。
+
+javascript不用考虑数据类型， 可以直接运算
+
+str.charAt(2) 
+
+DOM 的操作一般放在最后面
+
+javascript还是加一下 ; 
+----------------------------------------------
+
+返回了某种值一般要先容错一下
+if (访问是成功的 && 返回的值不是null && 返回的值时expect的){
+	// 再处理这个
+}
+
+
+var a = 1, b = 1, c = 1, d = 1;
+if (a == b == c == d){
+	//...
+}
+
+alert("here !"); 
+var quit = confirm("Are you sure you want to quit ?");
+
+alert will stop the javascript, 
+before clicking ok, which will make it continue run,
+we can tyle in the console to test.
+
+好用的时候时调试某个loop.
+
+
+如果想知道数据类型，用typeof
+typeof("hello")   -> "string"
+
+---------object and array------------------------------
+
+arrays are objects
+
+var person = [""];
+
+var person = {firstName: "John", lastName: "Doe"}
+
+javascript 里面， object和array是一种东西
+
+person[0]
+person["firstName"]  // 可以用数组的方法访问
+person.firstName   //用jsong的访问方式
+
+//写成object
+var animal = {
+	init:function(){
+		//...
+		this.loadConfirmation(); //这里的this就是这个object
+	},
+	loadConfirmation: function(){
+		//...
+	}
+}
+
+$(document).ready(function(){
+	animal.init(); //  init 这个object
+});
+
+
+
+---------function-------------------------------------
+
+// 这是最基本的函数
+function times(a,b){
+	return a * b;
+}
+
+javascript是并发执行的
+后一行不会等前一行执行完。
+所以要用callback 机制来保证后一个函数等谦一个函数执行完再执行。比如函数里面套函数。
+
+var result = times(generateNumber(), 4); 
+// stack 结构, 先把times push 进去， 然后把generateNumeber push进去。 然后pop, 所以是先执行generateNumber再执行times
+
+
+函数本身 是一种javascript的变量类型
+var times2 = function(){
+	return a * b;
+}
+
+使得我们可以把函数作为一个变量传到另外一个function里。
+
+
+-------jQuery---------------------------------------
+jQuery makes it easy to :
+find, change, listen, animate, talk
+
+方便动态层面的改变
+要找到element， -> selector
+要能改变element
+要能监听整个网页用户出发了什么行为，到哪个element有action，然后让它动起来。 -> onClick
+有个简单的library去animate它， 但是不常用因为现在css做的很好了 
+ajax是在jquery 上面的 
+
+
+
+
+$("h1").text() //返回一个string是h1里面所有的text， 不包括那些html tag的东西。
+$("h1").html() //包含html tag
+
+$("h1").text("hello world"); //text改掉
+$(".targetText").text("hello");
+
+$("button").click()
+
+
+
+
+
+两类event：
+
+一种是do some behavior, 
+当我的dom ready的时候，执行什么
+$(document).ready(function(){
+	
+});
+
+另外一种是状态性的 ready,click 那种， 要我们这个状态下需要做什么。
+$("p").click(function(){
+	// do something when click
+});
+
+
+
+jquery callback 
+一般call back function 是最后一个
+一个function 里面有两个function, 当这个函数完成了之后会执行call back function
+$("p").hide("slow", function(){
+	// this is the call back function
+});
+
+
+----------Ajax--------------------------------------------
+Ajax 
+
+ajax是基于javascript的
+用jquery 封装了一些， 所以可以用简单的语法做get/post
+
+在chrome 里面 netoworks
+
+headers
+preview // 返回的值 response
+response //纯的返回的值
+
+
+$.get(url, success)
+这个success是callback function, 表示当它success了以后做什么
+
+$.post(URL,data,success)
+data是要传入的parameter
+success是callback
+
+$.ajax({name:value, name:value, ...})
+如果不是特别standard的call可以都用 .ajax
+可以把所有的发出去的东西写进parmeter里面
+
+$.ajax(url, {name:value, name:value, ..})
+
+
+
+
+success: function(response){   // response 就是之前看到的发回来的东西 //可以给一个变量的名称
+	//...
+}
+
+error: function(request, errorType, errorMessage){
+	//...
+}
+
+
+timeout: 3000  // ms， timeout就是error
+
+beforeSend: function(){
+	// runs before the ajex request
+}
+
+complete: function(){
+	// run after success and error
+}
+
+use event delegation
+delegation:使某一个本身不具有操作权限的东西 具有这个操作权限。
+
+
+
+$('.confirmation').on('click','button', function(){
+	//在这个confirmation下面的button
+	//绑定的是button， select的是confirmation, 比如想对confirmation里面所有的button 都采取这个
+	//对点击事件反应的是button
+});
+
+
+
+
+
+----作业-------------------------
+w3school
+javascript
+jquery
+看
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

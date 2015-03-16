@@ -1,0 +1,275 @@
+node js 
+
+
+为multi-thread而生的！
+用来写multi-threaded特别好， 不用考虑读写锁什么的
+
+
+环境
+
+http://nodejs.org/
+下载一下  install
+
+可以直接打开 terminal 打node
+推出 node : ctrl + C + C
+
+terminal里面cd到我们现在这个  05_Nodejs 下面
+
+folder 5.1
+create 一个app  app.js  我们的server
+
+cd到5.1下面
+node app.js  
+网页看localhost:8888
+
+任何server端的东西 需要restart一下server
+
+
+
+
+var http = require('http');
+
+// require 了这个http的module
+// create 一个server, server里面有listen()这个function， 
+// listen 一个是port number 是一个callback
+// createServer里面给一个callback, 会return request 和 result
+// 让result的header里面写 header return 的状态， 200是成功
+
+// 如果里面是200 success , 404是error
+// 如果404可以高度
+
+http.createServer(function(req, res){
+	res.writeHead(200);
+	res.write("Congs, you got it. Request start.");
+	res.write("haha, request start.");
+	res.end(); // 在end之前result可以一直write 
+
+}).listen(8888, function(){
+	console.log("listen to 8888");
+});  
+
+-----timeout----
+
+http.createServer(function(req, res){
+	res.writeHead(200);
+	res.write("Congs, you got it. Request start.");
+	setTimeout(function(){
+		res.write("haha, request start.");
+		res.end(); // 在end之前result可以一直write, end 里面
+	}, 5000); // 5秒之后timeout, 结束之后执行callback
+	
+}).listen(8888, function(){
+	console.log("listen to 8888");
+});  
+-----node js是基于event的----
+
+基于event的
+基于有一个request 的事件， 
+任何事件来  如果thread有capacity就会处理
+
+会触发一个EventEmitter
+
+
+module 实现一些功能, 就像一个class
+require
+module可以第三方倒入，也可以自己写
+
+---第一种写法  bye_module.js---------------
+var bye = function() {
+	console.log("say bye bye");
+}
+module.exports = bye;
+----用的时候-------------
+var bye = require("./bye_module");
+bye();
+-----------第二种写法-----------------------------
+
+var sayBye = function (){ 
+	console.log("say bye bye");
+}
+
+var sayHello = function (){ 
+	console.log("say hello");
+}
+
+var sayListen = function (){ 
+	console.log("listen to 8888");
+}
+
+exports.hello = sayHello
+exports.listenit = sayListen
+
+----------用的时候---------- 
+var bye = require("./bye_module");
+bye.listenit();
+----------------------------------------
+
+安装 express:
+在要的folder 里面
+npm install --save express
+
+如果我们 install的很多 module的时候  让他只打 m
+我们load 很多dependences 
+
+我们在我们的文件下create一个package.json
+--------package.json-------
+{
+  "dependencies": {
+    "express": "~4.12.0"
+  }
+}
+
+//把这些写在dependencies 里面之后就会自动load这些module
+//这个 ~ 表示不精确查找这个版本， 保留 版本号以上的
+// 如果只要最新的版本 就一个 ~就好了
+//之后在文件夹里面只要输入  npm install , 就可以install所有的
+npm update 更新里面所有的东西
+---------app.js 用express server发回一个网站的------------------------------------
+
+var express = require("express");
+var app = express();
+
+app.get('/miBand',function(req, res){
+	res.sendFile(__dirname + "/index.html");
+});  //app.get()是一个router,    一个是进来的url是什么， 一个是要做什么
+
+app.get('/css/:filename', function(req, res){
+	res.sendFile(__dirname + "/css/" + req.params.filename); // request是不能直接拿
+});
+
+app.get('/js/:filename', function(req, res){
+	res.sendFile(__dirname + "/js/" + req.params.filename); // request是不能直接拿
+});
+
+
+app.listen(8019)
+
+// 在browser里面加  http://localhost:8019/miBand
+--------express routes--------------------------------------------------------
+
+var express = require("express");
+var app = express();
+
+app.get('/miBand',function(req, res){
+	res.sendFile(__dirname + "/index.html");
+}); 
+
+
+//处理multiple page， 现在可以点到service 就会返回servic
+app.get('/service',function(req, res){
+	res.sendFile(__dirname + "/service.html");
+}); 
+
+
+app.get('/css/:filename', function(req, res){
+	res.sendFile(__dirname + "/css/" + req.params.filename); // request是不能直接拿
+});
+
+app.get('/js/:filename', function(req, res){
+	res.sendFile(__dirname + "/js/" + req.params.filename); // request是不能直接拿
+});
+
+
+app.listen(8019)
+
+--------拿twitter上的东西--------------------------------------------------------
+
+var url = require("url");
+var request = require("request");
+var express = require("express");
+var app = express();
+
+app.get('/tweets/:username', function(req, res){
+	var username = req.params.username;
+	options = {
+		protocol: "https:",
+		host:"twitter.com",
+		pathname:"/search",
+		query:{q:username}
+	}
+	var twitterUrl	= url.format(options);
+	request(twitterUrl).pipe(res);  // 把拿到的值丢进result
+
+	// request(twitterUrl)  是拿到的东西 
+
+});
+
+
+app.listen(8019)
+-------------
+terminal里面run:
+node app.js
+在browser里：
+http://localhost:8019/tweets/china
+-----------------
+{
+  "dependencies": {
+    "express": "~4.12.0", 
+    "request": "~2.53",
+    "url": "~0.10"
+  }
+}
+-------------------
+
+
+=======作业评讲================================
+// HomeWork 5 NodeJS - find cheap iphone case price
+var url = require("url");
+var request = require("request");
+var express = require("express");
+var app = express();
+
+app.get('/result/:keywords', function(req, res){
+	console.log("HELLO!")
+	var keywords = req.params.keywords;
+	options = {
+		protocol: "https:",
+		host:"www.amazon.com",
+		pathname:"/s/ref=nb_sb_noss",
+		query:{"field-keywords": keywords,"url":"search-alias%3Daps"}
+	}
+	var amazonUrl	= url.format(options);
+	console.log(amazonUrl);
+	request(amazonUrl).pipe(res);  
+
+	//----试试print出来request 的result
+	var result = request(amazonUrl); //这个只打出了 head
+	console.log(result);             // request 是有callback的
+
+	//-------调试 看哪个是我们callback 需要的-------------
+	// 发现第三个是我们要的
+	request(amazonUrl, function(a,b,c,d,e){
+		console.log(a + "\n");
+		console.log(b+ "\n");
+		console.log(c + "\n");
+		console.log(d + "\n");
+		console.log(e + "\n");
+
+	});
+
+	//---request是npm的module所以可以去npm官网去查------------
+	request(amazonUrl, function(a,b,body){
+		console.log(body);
+	}
+	//去w3 school 看 js substring 来处理string
+	
+	
+});
+
+app.listen(8019)
+------------------------------------------
+
+可以去node module 里面去看他的函数，request.js里面看 
+Resquest.prototype.pipe()
+这个重写了pipe()
+
+
+
+
+
+
+
+
+
+
+

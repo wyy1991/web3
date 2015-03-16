@@ -1,0 +1,37 @@
+{>"layouts/master" /}
+
+
+{<title}
+	{@pre type="content" key="title"/}
+{/title}
+
+{<body}
+    <h1>{@pre type="content" key="greeting"/}</h1>
+
+  
+	{.|js}  
+    <br>
+    <br>
+    {#A.B}
+    	{name}
+    {/A.B}
+    <br>
+    {A.B.name}
+
+    <br>
+    {>"pages/partial" name1="gaga" /}
+    <br>
+    {>"pages/partial" /}
+
+
+    {#A.B c=A.firstname}
+        {c}
+    {/A.B}
+
+
+    {@if cond="{age} > 10"}
+        <div> age is more than 10</div>
+    {:else}
+        <div> age is not more than 10</div>
+    {/if}
+{/body}

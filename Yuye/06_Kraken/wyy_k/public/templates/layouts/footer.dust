@@ -1,0 +1,60 @@
+<!-- S footer -->
+<div class="footer">
+    <div class="foot_container">
+        <div class="footer_l">
+            <div class="nav">
+                <a href="http://www.mi.com/en/about">About us</a>
+                <a href="http://www.mi.com/en/founder">Management</a>
+                <a href="http://www.mi.com/en/contact">Contact us</a>
+                <a href="http://www.mi.com/en/privacy">Privacy Policy</a>
+                <a href="http://www.mi.com/en/agreement">User Agreement</a>
+
+            </div>
+            <div class="social">
+                <a class="facebook" href="https://www.facebook.com/xiaomichina" target="_blank">Facebook</a>
+                <a class="google-plus" href="https://plus.google.com/112108000562542116245" rel="publisher" target="_blank">Google+</a>
+                <a class="twitter" href="https://twitter.com/Xiaomi" target="_blank">Twitter</a>
+            </div>
+
+        </div>
+        <div class="footerbtm clearfix">
+            <span class="claim">
+                            </span>
+            <span class="select clearfix">
+                <span class="main_tar">Global Home</span>
+                <ul class="main_content clearfix"> 
+                    <li><a  href="http://www.mi.com/index.html"  target="_blank"  >Mainland China 简体中文</a></li><li><a  href="http://www.mi.com/hk/"  target="_blank"  >Hong Kong 繁體中文</a></li><li><a  href="http://www.mi.com/tw/"  target="_blank"  >Taiwan 繁體中文</a></li><li><a  href="http://www.mi.com/ph/"  target="_blank"  >Philippines </a></li><li><a  href="http://www.mi.com/sg/"  target="_blank"  >Singapore</a></li><li><a  href="http://www.mi.com/my/"  target="_blank"  >Malaysia</a></li><li><a  href="http://www.mi.com/in/"  target="_blank"  >India</a></li><li><a  href="http://www.mi.com/id/"  target="_blank"  >Indonesia</a></li>              </ul>
+            </span>
+        </div>
+    </div>
+
+</div>
+<!-- E footer -->
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="js/jquery.fullpage.js"></script>
+<script type="text/javascript" src="js/p.miband.js"></script>
+
+<script type="text/javascript" src="js/modal.js"></script>
+<script type="text/javascript">
+    XIAOMI.namespace("GLOBAL_CONFIG,GLOBAL_VAR");
+    XIAOMI.GLOBAL_CONFIG = {
+        orderSite:"en",        
+        httpsOrderSite:"en",        
+        protocol: "",
+        wwwSite:"http://www.mi.com/en",
+        logoutUrl:"en/site/logout",
+        quickLoginUrl:"https://account.xiaomi.com/pass/static/login.html",
+        guesslikeUrl:"",
+        damiaoSite:"",
+        appLocal: {
+            name: "en",
+            id:   ""
+        },
+        damiaoGoodsId:[]    }
+    XIAOMI.app.setLoginInfo.orderUrl = 'en/site/logout';
+    $(function(){
+        XIAOMI.app.setLoginInfo.init();
+    //头部弹出提示
+    // XIAOMI.app.headPrompt('Delivery for all Mi products purchased on Aug 16th will be made within 15 working days.');
+});
+</script>

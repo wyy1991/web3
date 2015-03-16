@@ -1,0 +1,26 @@
+body{
+	background-color: blue;
+
+
+	line-height:20px;
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, Arial, Verdana, sans-serif;
+
+	.showheader{
+		margin-top: -81px;
+		height: auto;
+
+
+		.crossPlatformTransition(all 500ms cubic-bezier(0.445,0.05,0.55,0.95));
+	}
+
+
+
+}
+
+
+.crossPlatformTransition (@str) {
+	-webkit-transition: @str;
+	-moz-transition: @str;
+	-o-transition: @str;
+	transition: @str);
+}

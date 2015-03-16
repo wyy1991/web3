@@ -1,0 +1,139 @@
+notes_web07.html
+
+
+enable less:
+http://lesscss.org/usage/#using-less-in-the-browser
+
+
+像bootstrap 这种有style上的包的，
+可能还要把它的ui倒进来，就他的css包，这个css有可能是用less写的，应该本身会把less弄进来,
+有时候会有问题，jQuery 可能要import进来，而这些library可能没有jQuery。
+
+所以有时候发现import进来的library没有用，s
+
+SASS
+http://sass-lang.com/
+也是一个动态生成css的，和less很像。
+
+用的是$， 就像是我们less里面用的@一样。
+
+我们上次讲了kraken MVC
+m - models里面那些js
+v － dust
+c - router那些
+localization
+
+-----今天的内容是Dust-------------
+Template三种语言：
+比较popular的是 Jade 和 EJS
+Dust.js 是对于front end engineer比较好上手的, 看起来就是 载体是基于json的，变量的访问是
+
+我门这次就基于dust
+
+传统的html没法在在mvc下面对json访问。  传统的是用javascript做json的解析，用了这dust什么的，template（view）可以直接访问model里面的数据
+
+
+
+Dust 有问题可以看这个上面，
+https://github.com/linkedin/dustjs
+https://github.com/linkedin/dustjs/wiki/Dust-Tutorial
+
+
+
+对于list 这个相当于一个for loop
+    {#names}
+    
+    {/names}
+
+
+------For Loop-------
+    <ul>
+    {#names}
+    	<li>{name} is a famous person</li>
+    {/names}
+    </ul>
+
+---if else----
+
+    {?title}
+    	<div>this json has pair with name "title"</div>
+    {:else}
+    	<div>this json no pair</div>
+    {/title}
+----------
+
+强制 escaping， 有
+
+More on Dust Output and Dust Filters
+用了template 语言使得 template直接对值访问， dust给了一些
+
+
+在前端做调试的时候，可以用这两个， 打印出来json的structure
+
+Hello {name|js} stringify JSON literal
+Hello {name|jp} parse JSON string to object
+
+
+{names|js}
+
+
+{.|js}  //看model的所以js 
+
+kraken build in了lucica的一些security的东西， 所以直接调试dust 的自己的还不大性
+----------
+
+访问好几层的时候   {A.B.name}
+
+可以用loop,因为不知道里面有多少个， 如果有的话就都print出来
+{#A.B}
+    	{name}
+{/A.B}
+
+在json 命名的时候， 有空格， 不能直接访问到，需要parse一次， 把空格全部去掉。变量名必须采用无空格的方式。
+
+如果中间有空格的话 不一样
+
+-------
+本身是无法set和改变这个json的值，
+但是在import的时候可以做点什么
+
+
+partial.dust
+import一段partial
+如果有name1 就返回name1, 如果没有的话就返回name, 如果这边没有，就找parent里面的name
+
+{?name1}
+	my name is {name1}
+{:else}
+	my name is {name}
+{/name1}
+
+
+如果是
+
+    {#A.B c=A.firstname}
+        {c}
+    {/A.B}
+
+---如果是import一段代码的话---
+
+
+----if--------
+一般公司不希望你用if的话 @if
+用的是javascript 里面的evar， 仍然会出现html scripting的问题
+所以会希望用 @ite @gt 这些 equal   not equal
+
+    {@if cond="{age} > 10"}
+        <div> age is more than 10</div>
+    {:else}
+        <div> age is not more than 10</div>
+    {/if}
+
+----这种if只是判断有没有------
+	{?title}
+    	<div>this json has pair with name "title"</div>
+    {:else}
+    	<div>this json no pair</div>
+    {/title}
+----------
+

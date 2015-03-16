@@ -1,0 +1,32 @@
+{>"layouts/master" /}
+
+
+{<title}
+	title for {name} page
+{/title}
+
+{<body}
+    
+
+    <h1>Hello, {title}!</h1>
+    <ul>
+    {#names}
+    	<li>{name} is a famous person</li>
+    {/names}
+    </ul>
+
+
+    {?title}
+    	<div>this json has pair with name "title"</div>
+    {:else}
+    	<div>this json no pair</div>
+    {/title}
+    <br>
+
+    {names|js}
+    <br>
+    <br>
+    {.|js}
+
+   
+{/body}

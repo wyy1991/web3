@@ -1,0 +1,258 @@
+class 06  continue node js
+
+可以去 node.js 官网
+
+npmjs 这个社区上面看node js有哪些module
+https://www.npmjs.com/
+
+express这个包 非常popular
+可以作为一个mvc的东西
+
+我们可以去看它的官方网站 :  http://expressjs.com/
+node js web application 的一个web framework
+
+安装方式  npm install 我们之前都装过了
+
+--------http://expressjs.com/guide/routing.html--------------
+
+这个可以作为我们的controller  这些功能是有里面的Routing 这部分实现的。
+
+app.get()
+app.post()   //是在发请求的时候需要把parameter set进去
+
+
+			 --------------这个地方是可以不加后缀的， 但是说 要是带后缀就都代， 不带就都不带,这个也支持regular expression的match
+			|
+app.get('/about/', function(req, res){
+	res.send('')
+})
+
+
+可以支持regular expression的 match， 有引号的，强制的
+-----------
+router get的执行逻辑， 如果第一个app.get() 会执行最先match到的, 前面的match了后面的就的
+
+可以用于  fallback 掉下来接着的感觉， 
+容错 auto correction
+比如 url都没有match到， 我们可以用一饿
+--------------
+不加引号的 /a/  意思是match anything start with an 'a'
+
+// will match anything with an a in the route name:
+app.get(/a/, function(req, res) {
+  res.send('/a/')
+})
+
+可以用于bank transaction，里面有一些加密了的乱码之类的， 发到自己的server上去提取信息， 作为一个flag告诉server端需要去哪个url提取信息
+
+----多个callback-------
+
+三个模块分开写的， 当三个模块分开以后，可以做一系列的callback 而不是只有一个callback
+这里有一个middleware的概念，
+IE了三个
+
+
+A route can be handled using an array of callback functions:
+
+var cb0 = function (req, res, next) {
+  console.log('CB0')
+  next()
+}
+
+var cb1 = function (req, res, next) {
+  console.log('CB1')
+  next()
+}
+
+var cb2 = function (req, res) {
+  res.send('Hello from C!')
+}
+
+app.get('/example/c', [cb0, cb1, cb2])
+
+===========================================================
+http://krakenjs.com/
+我们可以用别人的一个线程的
+kracken
+一个后端 MVC 
+
+dust i18 用于做多语言支持
+dust context 是一个template  是由linked in 和 paypal 
+2014年7 8 月份开始open source的
+
+-----get started kraken--------
+http://krakenjs.com/#gettingstarted
+
+Structure of a Project 文件夹的结构，见网页
+
+configuration.json 里面写 不同的模式
+
+Security用的是Lusca 
+
+Routes  是基于express的， 代码和我们之前express的非常像， app是一个是一个非常好的
+
+Template用的是dust, 长得很像html， 因为dust是由front end developer 开发的 :P
+
+Grunt task  用于做一些检测， 做qa之类的东西
+--------------------------------------------------------
+
+$ yo kraken
+
+
+hh  / _  _ \
+    |(@)(@)|   Release the Kraken!
+    )  __  (
+   /,'))((`.\ 
+  (( ((  )) ))
+   `\ `)(' /'
+
+Tell me a bit about your application:
+
+? Name: wyy_kraken
+? Description: my first kraken project
+? Author: Yuye
+? Template library? Dust
+? Front end package manager ? Bower
+? CSS preprocessor library? LESS
+? JavaScript library? RequireJS
+--------------------------------------------------------
+装好了以后 
+
+$ node server.js
+
+我么以后要touch的是 MVC 的三个文件夹：
+module  template  controller
+
+
+看index.js
+modules.export 拿到的app 和 index.js里面一样
+里面options里面的next() 就跟之前说的那个 callback 传递下去时一个道理。
+----------dust----------------------------------------------
+
+重复使用一些重复的东西
+比如 head文件， 共同的css， 相同的html什么的可以放在一起
+
+语法：
+{+body}
+
+
+> 时要require的哪一部分
+< 返回去的部分
+
+public/templates/layouts/index.dust
+public/templates/layouts/master.dust
+
+在master.dust里面加了：
+{<title}
+	my first kraken app
+{/title}
+
+用的时候， 在index.dust里面：
+<title>{+title /}</title>
+------------用kraken仿站--------------------------------------------
+小米: http://www.mi.com/en/index.html
+index.html
+mibox
+mi4
+miband
+
+
+
+controllers/index.js
+models/index.js
+
+我们对于每一个page 会有相对应的modle view controller
+总的contollers/index.js里面是我们routing的东西， 链接了我们的template 和model 
+
+template 里面的名字, 要和 local 里面的propertiesi 里面的一样
+-----less-----------------------
+
+less 向下兼容css， 所以在less文件里面
+
+几个主要的学习网站：
+lesscss.org  //
+less2css.org //时时把less转换成css看的网站， 这个网站是会报错的，浏览器里面调试是不会报错了
+
+
+less 让我门可以按照DOM的结构嵌套的来写， 方便debug
+
+body {
+	
+}
+
+如下：
+body {
+	header {
+		.nav {
+
+		}
+	}
+	footer {
+
+	}
+}
+
+Nested Rules
+
+------变量------ 
+less里面可以定义变量，
+比如，一个颜色是基于另一个颜色的一些计算出来的，这样我们改base d
+
+----Mixins  很像函数------
+.my-other-mixin() {
+	background: white
+}
+
+.border-radius(@radius) {
+	-webkit-border-radius:@radius;
+
+}
+
+可以不传参数，传一个或多个参数，还可以default param的参数。
+所以必须传值进去的必复放前面
+
+----less里面可以做数学运算------
+.overage(@x,@y) {
+	@average: ((@x + @y) / 2);
+}
+
+//定义了以后都是全局可以access
+----less里面可以做逻辑判断------
+
+if else
+loop
+----css本身无法互相import, less可以根据不同的内容去import不同的css-----
+@import (keyword) "filename";
+
+---parent selectors-----
+最多用在sudo 的class, before after hover之类的
+a {
+  color: blue;
+  &:hover {
+    color: green;
+  }
+}
+--results in--
+
+a {
+  color: blue;
+}
+a:hover {
+  color: green;
+}
+
+-----homework !-------------
+
+阅读: 官网里面 language features 里面的东西, 试一下 例子
+练习: 把css弄好 
+
+
+
+
+
+
+
+
+
+
+

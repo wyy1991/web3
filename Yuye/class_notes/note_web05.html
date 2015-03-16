@@ -1,0 +1,177 @@
+note_web05.html
+
+javascript 函数
+
+
+---函数多数用的是expression的形式，也可以用declaration的方式-----
+
+函数本身 用expression的形式把他赋予给变量。
+
+
+function minus(a, b){
+	return a - b;
+}
+
+var newminus = function minus2(a, b){
+	return a - b;
+}
+
+//这个时候如果minus2(4,2)  会说undefined 
+// 执行方法 newminus(4,2)
+//可以把minus2这个名字去掉， 函数匿名
+
+//变量的方法， 只有在被调用的时候才会被 注入到内存里面， 比直接写function要省内存
+
+
+
+var minusNum= function (a, b){
+	return a - b;
+}
+
+var addNum= function (a, b){
+	return a + b;
+}
+
+function runAction(action, a, b){
+	return action(a, b);
+}
+//让这个function可以pass in 进去来说是add or minus
+//runAction(addNum, 3, 4)
+
+------map函数--------------------------------------------------------
+ array的函数有一个map的函数 是javascript里面比较独特的， 可以让我们很快的实现一些功能。
+
+
+//我们想做一个function让它loop一遍然后对每一项做同样的操作
+//用map
+//例子，现在想让每个数 x2
+var numbers = [12, 3, 4, 7]
+var results = numbers.map(function(item){
+	return item * 2;
+});
+
+//这里map函数的callback function 传进去一个argument是item
+-------array----------------------------------------
+
+numbers.push(34);
+var popNum = numbers.pop(); //stack的pop
+var shiftNum = numbers.shift(); //queue的从队首挤出来一个
+
+先提一下：
+//可以给String形的的prototype
+//如果想让某一种object定义某种proto
+//可以定义一个string型的某个函数 定义一个新的功能， 然后之后所有你的string都会有这个功能
+
+------closure------------------------------------------------------
+
+
+//numbers.push(34);
+//var popNum = numbers.pop(); //stack的pop
+//var shiftNum = numbers.shift(); //queue的从队首挤出来一个
+
+function testClosure(number, numbers){
+	var findNum;
+	for (var i = 0; i<numbers.length; i++){
+		if (numbers[i] == number){
+			findNum = function(){
+				alert("you find number " + number + " at index " + i);
+			}
+		}
+	}
+	return findNum;
+}
+
+testClosure(12, numbers);  //当他找到的时候number是没有问题的， i的话是i++加完了的所以就等于4
+
+
+//所以怎么改呢， 找到的时候可以直接return
+//当在一个函数里边执行另一个函数的时候， 需要immediately return, 特别是for loop 或者值有 change的情况下
+function testClosure(number, numbers){
+	for (var i = 0; i<numbers.length; i++){
+		if (numbers[i] == number){
+			return function(){
+				alert("you find number " + number + " at index " + i);
+			}
+		}
+	}
+}
+------------执行的顺序是什么-----------------------------------
+
+javascript load的顺序
+先解析变量，然后再执行， 
+先解析所有的var如果没有的话会负值为undefined
+然后开始执行
+如果有两个完全相同的函数的话，会互相覆盖， 后面一个会覆盖上面一个，
+
+要注意一下
+
+----------Object-------------------------------------
+
+var myBox = {
+	chang: 10,
+	kuan: 20,
+	gao: 15,
+	daxiao: function(){
+		return myBox.chang * myBox.kuan * myBox.gao; //可以用this
+	},
+	description: "wo ha ha ha",
+	"ni shuo sha": "ca ca ca"  //如果命名的名字中间有space的时候必须要引号， 访问的时候不能用点
+}
+
+myBox.chang;
+myBox["ni shuo sha"];
+
+//再console 里面可以看到这个object里面还有个 叫 __proto__ 就是和prodotype是一样的东西
+myBox.toString()
+//会得到 "[object Object]"  因为是high level的object toString
+//toString只是把当前level的东西变成string
+//所以表示的是这个是个 Object类型的 object这个东西
+
+myBox.daxiao.toString()
+"function (){
+		return myBox.chang * myBox.kuan * myBox.gao; //å¯ä»¥ç”¨this
+	}"
+
+
+
+推荐用[]的方法访问里面的值：
+myBox["ni shuo sha"];
+//如果命名的名字中间有space的时候必须要引号， 访问的时候不能用点
+
+
+box["# of Books"]++;
+box["book" + box["# of Books"]] = {title: name, author: writer}; 方便运算
+
+
+---proto---
+Object.prototype.color = "red";
+Function.prototype.id = "1";
+
+这个时候看 console里面的class是
+
+
+怎么create class 是：
+
+function box(a,b,c){
+	this.chang = a,
+	this.kuan = b,
+	this.gao = c,
+	this.daxiao = function(){ return this.chang * this.kuan}
+}
+
+var boxone = new box(10,20,30);
+
+// variable 也可以是个class
+var box = function(a,b,c){
+	this.chang = a,
+	this.kuan = b,
+	this.gao = c,
+	this.daxiao = function(){ return this.chang * this.kuan}
+}
+
+
+
+
+
+
+

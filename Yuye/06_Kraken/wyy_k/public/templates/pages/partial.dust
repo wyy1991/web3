@@ -1,0 +1,5 @@
+{?name1}
+	my name is {name1}
+{:else}
+	my name is {name}
+{/name1}
